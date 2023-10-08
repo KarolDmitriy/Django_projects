@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+F:\Django_projects\task_001\dj_pro\dj_pro\settings.py changed, reloading.
+INFO 2023-09-27 21:43:00,530 autoreload 13144 17072 Watching for file changes with StatReloader
+INFO 2023-09-27 21:43:17,224 basehttp 13144 4036 "GET / HTTP/1.1" 200 13
+INFO 2023-09-27 21:43:26,972 basehttp 13144 4036 "GET /about/ HTTP/1.1" 200 8
