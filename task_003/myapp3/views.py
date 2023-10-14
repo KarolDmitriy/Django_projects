@@ -1,13 +1,8 @@
-from datetime import timedelta
-
+from django.shortcuts import get_object_or_404, render
+from .models import Customer, Product
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from datetime import timedelta
 from django.utils import timezone
-
-from .models import Customer
-from .models import Product
-
 
 # Create a new customer
 def create_customer(request):
@@ -60,18 +55,16 @@ def delete_customer(request, customer_id):
         return JsonResponse({'error': 'Invalid request method'})
 
 def order_list(request):
-    # Определяем даты начала и окончания периодов
     today = timezone.now()
     last_7_days = today - timedelta(days=7)
     last_30_days = today - timedelta(days=30)
     last_365_days = today - timedelta(days=365)
 
-    # Получаем уникальные товары заказанные за последние 7 дней, 30 дней и 365 дней
     last_7_days_products = Product.objects.filter(order__order_date__gte=last_7_days).distinct()
     last_30_days_products = Product.objects.filter(order__order_date__gte=last_30_days).distinct()
     last_365_days_products = Product.objects.filter(order__order_date__gte=last_365_days).distinct()
 
-    return render(request, 'app_name/order_list.html', {
+    return render(request, 'myapp3/order_list.html', {
         'last_7_days_products': last_7_days_products,
         'last_30_days_products': last_30_days_products,
         'last_365_days_products': last_365_days_products,
