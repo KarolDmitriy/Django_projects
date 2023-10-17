@@ -3,6 +3,7 @@ from .models import Customer, Product
 from django.http import JsonResponse
 from datetime import timedelta
 from django.utils import timezone
+from .forms import ProductEditForm
 
 # Create a new customer
 def create_customer(request):
@@ -69,3 +70,17 @@ def order_list(request):
         'last_30_days_products': last_30_days_products,
         'last_365_days_products': last_365_days_products,
     })
+
+
+def edit_product(request, product_id):
+    product = Product.objects.get(id=product_id)
+
+    if request.method == 'POST':
+        form = ProductEditForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            # Добавьте перенаправление или другие действия после успешного редактирования
+    else:
+        form = ProductEditForm(instance=product)
+
+    return render(request, 'app_name/edit_product.html', {'form': form, 'product': product})
