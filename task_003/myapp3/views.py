@@ -1,9 +1,9 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render
 from .models import Customer, Product
 from django.http import JsonResponse
 from datetime import timedelta
 from django.utils import timezone
-from .forms import ProductEditForm, ProductForm
+from .forms import ProductEditForm
 
 # Create a new customer
 def create_customer(request):
@@ -84,13 +84,3 @@ def edit_product(request, product_id):
         form = ProductEditForm(instance=product)
 
     return render(request, 'app_name/edit_product.html', {'form': form, 'product': product})
-
-def create_product(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('product_list')
-    else:
-        form = ProductForm()
-    return render(request, 'create_product.html', {'form': form})
